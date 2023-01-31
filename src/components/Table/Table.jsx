@@ -6,11 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import ButtonSelector from "../ButtonSelector/ButtonSelector";
 
-export default function Tables({ data }) {
+export default function Tables({ data, onDeleteClick }) {
+
   return (
     <TableContainer
       sx={{
@@ -23,30 +22,42 @@ export default function Tables({ data }) {
       }}
       component={Paper}
     >
-      <Table sx={{ minWidth: 900 }} aria-label='simple table'>
+      <Table
+        sx={{ minWidth: 900 }}
+        stickyHeader={true}
+        aria-label='simple table'
+      >
         <TableHead>
           <TableRow>
             {data.length &&
               Object.keys(data[0])
                 ?.reverse()
                 .map((el) => {
-                  return <TableCell align='right'>{el}</TableCell>;
+                  return (
+                    <TableCell key={el.id} align='right'>
+                      {el}
+                    </TableCell>
+                  );
                 })}
             <TableCell align='right'>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.length &&
-            data.map((row) => (
+            data.map((item) => (
               <TableRow
-                key={row.name}
+                key={item.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 {data.length &&
                   Object.keys(data[0])
                     ?.reverse()
                     .map((el) => {
-                      return <TableCell align='right'>{row[el]}</TableCell>;
+                      return (
+                        <TableCell key={el.id} align='right'>
+                          {item[el]}
+                        </TableCell>
+                      );
                     })}
                 <TableCell
                   sx={{
@@ -55,34 +66,18 @@ export default function Tables({ data }) {
                   }}
                   align='right'
                 >
-                  <Button
-                    size='small'
-                    sx={{
-                      background: "red",
-                      color: "white",
-                      padding: 1,
-                      "&:hover": {
-                        background: "red",
-                      },
+                  <ButtonSelector
+                    onClick={() => {
+                      onDeleteClick(item.id);
                     }}
-                    endIcon={<DeleteIcon />}
-                  >
-                    delete
-                  </Button>
-                  <Button
-                    size='small'
-                    sx={{
-                      background: "purple",
-                      color: "white",
-                      padding: 1,
-                      "&:hover": {
-                        background: "purple",
-                      },
+                    variant='delete'
+                  />
+                  <ButtonSelector
+                    onClick={() => {
+                      // onUpdateClick(item.id);
                     }}
-                    endIcon={<EditIcon />}
-                  >
-                    update
-                  </Button>
+                    variant='update'
+                  />
                 </TableCell>
               </TableRow>
             ))}
