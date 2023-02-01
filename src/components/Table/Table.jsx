@@ -7,9 +7,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ButtonSelector from "../ButtonSelector/ButtonSelector";
+import { Link } from "react-router-dom";
 
 export default function Tables({ data, onDeleteClick }) {
-
   return (
     <TableContainer
       sx={{
@@ -19,6 +19,7 @@ export default function Tables({ data, onDeleteClick }) {
         transform: "translate(-50%,-50%)",
         maxWidth: "1000px",
         height: 600,
+        overflow: "auto"
       }}
       component={Paper}
     >
@@ -29,7 +30,7 @@ export default function Tables({ data, onDeleteClick }) {
       >
         <TableHead>
           <TableRow>
-            {data.length &&
+              {data.length &&
               Object.keys(data[0])
                 ?.reverse()
                 .map((el) => {
@@ -46,7 +47,7 @@ export default function Tables({ data, onDeleteClick }) {
           {data.length &&
             data.map((item) => (
               <TableRow
-                key={item.name}
+                key={item.title}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 {data.length &&
@@ -72,12 +73,9 @@ export default function Tables({ data, onDeleteClick }) {
                     }}
                     variant='delete'
                   />
-                  <ButtonSelector
-                    onClick={() => {
-                      // onUpdateClick(item.id);
-                    }}
-                    variant='update'
-                  />
+                  <Link to={`/${item.id}`}>
+                    <ButtonSelector variant='update' />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

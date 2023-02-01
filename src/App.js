@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layouts/Layout";
 import Branches from "./components/Branches/Branches";
 import Products from './components/Products/Products';
+import Branch from './components/Branch/Branch';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Route path="/" element={ <Layout /> }>
         <Route index element={ <Branches /> } />
         <Route path='/products' element={ <Products /> } />
+        <Route path='/:id' element={ <Branch /> } />
       </Route>
     </Routes>
   );
