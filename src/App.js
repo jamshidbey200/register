@@ -12,6 +12,7 @@ function App() {
         <Route index element={ <Branches /> } />
         <Route path='/products' element={ <Products /> } />
         <Route path='/:id' element={ <Branch /> } />
+        <Route path='/create' element={ <Branch /> } />
       </Route>
     </Routes>
   );

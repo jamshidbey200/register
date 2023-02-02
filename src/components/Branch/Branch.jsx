@@ -1,15 +1,29 @@
 import { Box, Button, Paper, TextField } from "@mui/material";
+import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getById } from "../../API/services";
+import { createItem, getById, updateItem } from "../../API/services";
 
 const Branch = () => {
   const { id } = useParams();
-
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      address: "",
+      start_work: "",
+      end_work: "",
+    },
+    onSubmit: (values) => {
+      if(id) {
+        updateItem("branches", id, values);
+      }else {
+        createItem("branches", values)
+      }
+    },
+  });
   useEffect(() => {
     if (id)
       getById("branches", id).then((res) => {
-        console.log(res.data);
       });
   }, []);
 
@@ -27,12 +41,7 @@ const Branch = () => {
         padding: 3,
       }}
     >
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          console.log(event.target.elements.title.value);
-        }}
-      >
+      <form onSubmit={formik.handleSubmit}>
         <Box sx={{ display: "grid", gap: 2 }}>
           <TextField
             name='title'
@@ -40,6 +49,8 @@ const Branch = () => {
             id='outlined-basic'
             label='title'
             variant='outlined'
+            value={formik.values.title}
+            onChange={formik.handleChange}
           />
           <TextField
             name='address'
@@ -47,13 +58,17 @@ const Branch = () => {
             id='outlined-basic'
             label='address'
             variant='outlined'
+            value={formik.values.address}
+            onChange={formik.handleChange}
           />
           <TextField
-            name='start-work'
+            name='start_work'
             fullWidth
             id='outlined-basic'
             label='start_work'
             variant='outlined'
+            value={formik.values.start_work}
+            onChange={formik.handleChange}
           />
           <TextField
             name='end_work'
@@ -61,6 +76,8 @@ const Branch = () => {
             id='outlined-basic'
             label='end_work'
             variant='outlined'
+            value={formik.values.end_work}
+            onChange={formik.handleChange}
           />
         </Box>
         {id ? (

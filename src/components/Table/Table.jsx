@@ -19,7 +19,7 @@ export default function Tables({ data, onDeleteClick }) {
         transform: "translate(-50%,-50%)",
         maxWidth: "1000px",
         height: 600,
-        overflow: "auto"
+        overflow: "auto",
       }}
       component={Paper}
     >
@@ -30,7 +30,7 @@ export default function Tables({ data, onDeleteClick }) {
       >
         <TableHead>
           <TableRow>
-              {data.length &&
+            {data.length &&
               Object.keys(data[0])
                 ?.reverse()
                 .map((el) => {
