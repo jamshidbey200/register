@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ButtonSelector from "../ButtonSelector/ButtonSelector";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export default function Tables({ data, onDeleteClick }) {
   return (
@@ -20,9 +21,28 @@ export default function Tables({ data, onDeleteClick }) {
         maxWidth: "1000px",
         height: 600,
         overflow: "auto",
+        textAlign: "right",
       }}
       component={Paper}
     >
+      {" "}
+      <Link to='/create'>
+        <Button
+          sx={{
+            color: "white",
+            background: "blue",
+            marginTop: 1,
+            marginRight: 1,
+            textDecoration: "none",
+            "&:hover": {
+              color: "white",
+              background: "blue",
+            },
+          }}
+          variant='add'
+        >Add
+        </Button>
+      </Link>
       <Table
         sx={{ minWidth: 900 }}
         stickyHeader={true}
